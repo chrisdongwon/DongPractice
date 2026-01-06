@@ -1,0 +1,42 @@
+# Level 1
+- Concepts
+	- IP (Internet Protocol) address
+		- Intuition: identification label on the network
+		- 32 bits for IPv4 (128 bits for IPv6)
+		- 4 octets (0 to 2^8 - 1) separated by dots
+		- Decimals are human readable, but all operations rely on binary representation
+	- Subnet mask
+		- Intuition: designates which part of the IP address corresponds to the network and the host
+		- In binary representation, 1 corresponds to the network and 0 corresponds to the host
+	- Network prefix:
+		- Performing bitwise AND on the binary representations of the IP address and the subnet mask results in the network address.
+		- If the host bits are all 0, then the resulting address is the **network address** and thus cannot be used as the host address (ambiguous)
+		- Host bits with all 1 are reserved for **broadcast address** and cannot be used as the host address. 
+	- Host suffix:
+		- Obtained by performing bitwise AND with the IP address and _one's complement (flipping 1's and 0's)_ of the subnet mask.
+- Solution
+	- **Hosts can communicate if and only if the network prefixes match.**
+	- Furthermore, check that each decimal integer (usually in the host suffix) is an octet (0 - 255). If not, just assign some random value between 1 and 254.
+# Level 2
+- Concepts
+	- /n means first $n^{th}$ bits in the subnet mask are 1
+	- Masks must have nonnegative trailing 0s
+		- Possible octet -decimal values for subnet masks:
+			- 1111 1111: 255
+			- 1111 1110: 254
+			- 1111 1100: 252
+			- 1111 1000: 248
+			- 1111 0000: 240
+			- 1110 0000: 224
+			- 1100 0000: 192
+			- 1000 0000: 128
+			- 0000 0000: 0
+- Solution
+	- Goal 1:
+		- To simplify the matter, use the same subnet mask but change the IP of A1 to match the network prefix.
+			- Possible values for the 4th IP address value is from 193 to 222, because 222 AND 224 = 192. Do NOT use 192, since it will have trailing 0's and it refers to the network address, and by similar reasoning, 223 will be for broadcast address.
+			- **To simplify, just use a value differing by 1 (as long as it is within range).**
+	- Goal 2:
+		- Similar to above, subnet mask ending with 252 means only the last 2 bits can be used for assigning host values. 0,1,2,3 are the possible host values but 0 is reserved for network address and 3 is reserved for broadcast address, so only 1 and 2 are the possible ending values for the IP addresses with this subnet mask.
+		- 127.x.x.x is reserved for **loop back** (for sending data packets to itself) and therefore is not a valid address for a host.
+			- Workaround - 126 or 128 should work just fine.
