@@ -84,10 +84,7 @@ This project focuses on the following networking fundamentals:
 
 ### References
 
-- RFC 791 — Internet Protocol (IPv4)
-- RFC 950 — Internet Standard Subnetting Procedure
-- Cisco Networking Basics Documentation
-- IBM TCP/IP Networking Overview
+- Computer Networking: A Top-Down Approach by James F. Kurose & Keith W. Ross
 - Wikipedia articles on IP addressing, subnet masks, CIDR notation, and the OSI model
 - 42 NetPractice subject PDF
 
